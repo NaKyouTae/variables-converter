@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "next build && next export && npm run rss",
+    "start": "next build && next start",
+    "lint": "next lint",
+    "postbuild": "next-sitemap",
+    "rss": "ts-node --project tsconfig.node.json ./scripts/generate-rss.ts"
   },
   "dependencies": {
     "react": "^18",
