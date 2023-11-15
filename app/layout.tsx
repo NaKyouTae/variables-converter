@@ -3,7 +3,6 @@ import "../styles/reset.css";
 import "../styles/font.css";
 import "../styles/ico.css";
 import "../styles/common.css";
-import "../styles/radio.css";
 import "../styles/style.css";
 
 import {Inter} from 'next/font/google'

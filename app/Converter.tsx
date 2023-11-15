@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export function Converter() {
     const [originStr, setOriginStr] = useState<string>("")
@@ -11,49 +11,75 @@ export function Converter() {
         { field: 'pascal', id: 'toPascal', label: 'PascalCase', isChecked: false },
         { field: 'kebab', id: 'toKebab', label: 'kebab-case', isChecked: false },
     ]);
+    const regCamel = /^[a-z][a-zA-Z\d]*$/
+    const regPascal = /^[A-Z][a-zA-Z\d]*(?:[A-Z][a-zA-Z\d]*)*$/
+    const regSnake = /^[A-Za-z\d]*[_](?:[A-Za-z\d]*)*$/
+    const regKebab = /^[A-Za-z\d]*[-](?:[A-Za-z\d]*)*$/
+
+    const isCamel = (str: string) => regCamel.test(str)
+    const isPascal = (str: string) => regPascal.test(str)
+    const isSnake = (str: string) => regSnake.test(str)
+    const isKebab = (str: string) => regKebab.test(str)
 
     const convert = (origin: string) => {
         setOriginStr(origin);
 
         const words = origin.split(/\s+/)
-
         const selectedVariable = variables.find((variable) => variable.isChecked);
 
         if (selectedVariable) {
             const { field } = selectedVariable;
+            const convertWords: string[] = []
 
-            const convertWords = words.map((str: string) => {
-                if (field === 'camel') {
-                    convertToCamelCase(str)
-                } else if (field === 'snake') {
-                    convertToSnakeCase(str)
-                } else if (field === 'pascal') {
-                    convertToPascalCase(str)
-                } else if (field === 'kebab') {
-                    convertToKebabCase(str)
+            words.map((str) => {
+                let word = str
+                
+                if(field == "camel") {
+                    if(isSnake(str)) { word = snakeToCamel(str) }
+                    else if(isPascal(str)) { word = pascalToCamel(str) }
+                    else if(isKebab(str)) { word = kebabToCamel(str) }
                 }
+                else if(field == "snake") {
+                    if(isCamel(str)) { word = camelToSnake(str) }
+                    else if(isPascal(str)) { word = pascalToSnake(str) }
+                    else if(isKebab(str)) { word = kebabToSnake(str) }
+                }
+                else if(field == "pascal") {
+                    if(isCamel(str)) { word = camelToPascal(str) }
+                    else if(isSnake(str)) { word = snakeToPascal(str) }
+                    else if(isKebab(str)) { word = kebabToPascal(str) }
+                }
+                else if(field == "kebab") {
+                    if(isCamel(str)) { word = camelToKebab(str) }
+                    else if(isSnake(str)) { word = snakeToKebab(str) }
+                    else if(isPascal(str)) { word = pascalToKebab(str) }
+                }
+
+                convertWords.push(word)
             })
 
-            console.log('convertWords', convertWords)
-
-            setConvertStr(convertWords.toString())
+            setConvertStr(convertWords.join("\n"))
         } else {
             setConvertStr("");
         }
     }
+    // ================== 테스트 완료 ======================
+    const snakeToCamel = (str: string): string => str.replace(/_([a-z])/g, (_, char) => char.toUpperCase())
+    const pascalToCamel = (str: string): string => str.replace(/^[A-Z][a-zA-Z\d]*(?:[A-Z][a-zA-Z\d]*)*/g, (match) => match.charAt(0).toLowerCase() + match.slice(1))
+    const kebabToCamel = (str: string): string => str.replace(/-([a-z])/g, (_, char) => char.toUpperCase())
 
-    const convertToCamelCase = (str: string) => {
-        return str.replace(/[-_]\w/g, (m) => m[1].toUpperCase());
-    }
-    const convertToSnakeCase = (str: string) => {
-        return str.replace(/[A-Z]/g, (m) => `_${m.toLowerCase()}`);
-    }
-    const convertToPascalCase = (str: string) => {
-        return str.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-    }
-    const convertToKebabCase = (str: string) => {
-        return str.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-    }
+    const camelToSnake = (str: string): string => str.replace(/[A-Z]/g, (match) => '_' + match.toLowerCase())
+    const pascalToSnake = (str: string): string => str.replace(/(?<!^)([A-Z])/g, (match) => '_' + match.toLowerCase()).toLowerCase()
+    const kebabToSnake = (str: string): string => str.replace(/-/g, '_')
+
+    const camelToPascal = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1)
+    const snakeToPascal = (str: string): string => snakeToCamel(str).charAt(0).toUpperCase() + snakeToCamel(str).slice(1)
+    const kebabToPascal = (str: string): string => kebabToCamel(str).charAt(0).toUpperCase() + kebabToCamel(str).slice(1)
+
+    const camelToKebab = (str: string): string => str.replace(/[A-Z]/g, (match) => '-' + match.toLowerCase())
+    const pascalToKebab = (str: string): string => str.replace(/(?<!^)([A-Z])/g, (match) => "-" + match.toLowerCase()).toLowerCase()
+    const snakeToKebab = (str: string): string => str.replace(/_/g, '-')
+    // ================== 테스트 완료 ======================
 
     const handleChangeCase = (field: string) => {
         const updatedVariables = variables.map((variable) => {
@@ -66,6 +92,10 @@ export function Converter() {
 
         setVariables(updatedVariables);
     }
+
+    useEffect(() => {
+        convert(originStr)
+    }, [variables])
 
     return (
         <div className="container">
