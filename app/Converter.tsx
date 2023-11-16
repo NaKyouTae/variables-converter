@@ -33,7 +33,7 @@ export function Converter() {
 
             words.map((str) => {
                 let word = str
-                
+
                 if(field == "camel") {
                     if(isSnake(str)) { word = snakeToCamel(str) }
                     else if(isPascal(str)) { word = pascalToCamel(str) }
@@ -64,9 +64,9 @@ export function Converter() {
         }
     }
     // ================== 테스트 완료 ======================
-    const snakeToCamel = (str: string): string => str.replace(/_([a-z])/g, (_, char) => char.toUpperCase())
+    const snakeToCamel = (str: string): string => str.toLowerCase().replace(/_([a-z])/g, (_, char) => char.toUpperCase())
     const pascalToCamel = (str: string): string => str.replace(/^[A-Z][a-zA-Z\d]*(?:[A-Z][a-zA-Z\d]*)*/g, (match) => match.charAt(0).toLowerCase() + match.slice(1))
-    const kebabToCamel = (str: string): string => str.replace(/-([a-z])/g, (_, char) => char.toUpperCase())
+    const kebabToCamel = (str: string): string => str.toLowerCase().replace(/-([a-z])/g, (key, char) => char.toUpperCase())
 
     const camelToSnake = (str: string): string => str.replace(/[A-Z]/g, (match) => '_' + match.toLowerCase())
     const pascalToSnake = (str: string): string => str.replace(/(?<!^)([A-Z])/g, (match) => '_' + match.toLowerCase()).toLowerCase()
