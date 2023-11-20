@@ -19,6 +19,10 @@ export default function RootLayout({ children }: {
     return (
         <html lang="ko">
         <head>
+            {/* RSS */}
+            <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="RSS" />
+            <link rel="alternate" type="application/atom+xml" href="/rss-atom.xml" title="RSS Atom" />
+            <link rel="alternate" type="application/json" href="/feed.json" title="JSON Feed" />
             {/* Open Graph */}
             <meta property="og:type" content="website"/>
             <meta property="og:url" content=""/>

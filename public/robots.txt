@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /exclude
+
+# Host
+Host: https://variables-converter.kr
+
+# Sitemaps
+Sitemap: https://variables-converter.kr/sitemap.xml
