@@ -17,14 +17,14 @@
     :root {
         --black: #FDFDFE;
         --white: #1E1E20;;
-    
+
         --gray200: #4F4F4F;
         --gray100: #333333;
     }
 }
 
 /* style ------------------------------ */
-.container {width: 100%; min-height: 100%; padding: 3rem 4rem; margin: 0 auto; display: flex; flex-flow: column;}
+.container {width: 76.8rem; margin: 0 auto; min-height: 100%; padding: 3rem 4rem; margin: 0 auto; display: flex; flex-flow: column;}
 
 @media screen and (max-width: 767px) {
     .container {padding: 3.2rem 2rem;}
@@ -37,7 +37,7 @@
 .contents {margin-top: 6rem;}
 
 @media screen and (max-width: 767px) {
-    .contents {margin-top: 4rem;}    
+    .contents {margin-top: 4rem;}
 }
 
 .check-wrap {display: flex; align-items: center; grid-gap: 1rem;}
