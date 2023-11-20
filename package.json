@@ -8,7 +8,7 @@
     "start": "next build && next start",
     "lint": "next lint",
     "postbuild": "next-sitemap",
-    "rss": "ts-node --project tsconfig.node.json ./scripts/generate-rss.ts"
+    "rss": "ts-node --project tsconfig.json ./scripts/generate-rss1.ts"
   },
   "dependencies": {
     "feed": "^4.2.2",
@@ -16,7 +16,8 @@
     "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-dom": "^18",
-    "sitemap-generator": "^8.5.1"
+    "rss": "^1.2.2",
+    "sitemap-generator": "^7.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",

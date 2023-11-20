@@ -1,5 +1,6 @@
-import { Feed } from 'feed';
-import { writeFileSync } from 'fs';
+var writeFileSync = require('fs');
+var RSS = require('rss');
+
 
 const siteUrl = 'https://wordscount.kr/';
 
@@ -9,7 +10,7 @@ const master = {
     link: siteUrl,
 };
 
-export const feed = new Feed({
+const feed = new RSS({
     title: '변수 변환기',
     description: '기입한 문자를 선택한 유형으로 변경하는 사이트',
     id: siteUrl,
@@ -27,6 +28,8 @@ export const feed = new Feed({
 });
 
 feed.addCategory('Utility');
+
+
 
 // Output: RSS 2.0
 writeFileSync('out/rss.xml', feed.rss2(), 'utf-8');
