@@ -27,6 +27,13 @@ export default function RootLayout({ children }: {
             <meta property="og:description" content="여러 타입의 변수를 바꾸는 변환기"/>
             {/* Page Description */}
             <meta name="description" content="여러 타입의 변수를 바꾸는 변환기입니다."/>
+
+            {/* Google Adsense */}
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7943148960429460"
+                    crossOrigin="anonymous"></script>
+            {/* Naver Meta Tag */}
+            <meta name="naver-site-verification" content="8545f4aa0d6acbe0433ecce847257655482477bb" />
+
         </head>
         <body className={inter.className}>{children}</body>
         </html>
