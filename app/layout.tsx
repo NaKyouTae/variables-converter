@@ -31,7 +31,8 @@ export default function RootLayout({ children }: {
             <meta property="og:description" content="여러 타입의 변수를 바꾸는 변환기"/>
             {/* Page Description */}
             <meta name="description" content="여러 타입의 변수를 바꾸는 변환기입니다."/>
-
+            {/* Google Search Engine */}
+            <meta name="google-site-verification" content="WV9mNNo3kWJNdzHQji12leWFIbOh4jEIUI_RBzNQFDM" />
             {/* Google Adsense */}
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7943148960429460"
                     crossOrigin="anonymous"></script>
